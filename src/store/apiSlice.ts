@@ -9,7 +9,14 @@ export const apiSlice = createApi({
     getPosts: builder.query({
       query: () => "posts",
     }),
+    createPost: builder.mutation({
+      query: (newPost) => ({
+        url: "posts",
+        method: "POST",
+        body: newPost,
+      }),
+    }),    
   }),
 });
 
-export const { useGetPostsQuery } = apiSlice;
+export const { useGetPostsQuery, useCreatePostMutation } = apiSlice;
