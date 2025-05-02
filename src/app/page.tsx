@@ -1,12 +1,11 @@
-import { CreatePostForm } from "@/components/CreatePostForm";
-import { Post } from "@/components/Posts";
-
+import { LoginForm } from "@/components/LoginForm";
+import { Posts } from "@/components/Posts";
 
 export default function Home() {
   return (
     <>
-      <CreatePostForm />
-      <Post />
+      <LoginForm />
+      <Posts />
     </>
   );
 }

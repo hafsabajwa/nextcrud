@@ -1,22 +1,38 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const baseQuery = fetchBaseQuery({
+  //baseUrl: "https://jsonplaceholder.typicode.com",
+  baseUrl: "#",
+
+  prepareHeaders: (headers) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) headers.set("Authorization", `Bearer ${token}`);
+    return headers;
+  },
+});
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => "posts",
     }),
-    createPost: builder.mutation({
-      query: (newPost) => ({
-        url: "posts",
+    login: builder.mutation({
+      query: (credentials) => ({
+        url: "auth/login",
         method: "POST",
-        body: newPost,
+        body: credentials,
       }),
-    }),    
+    }),
+    refreshToken: builder.mutation({
+      query: (refreshToken) => ({
+        url: "auth/refresh",
+        method: "POST",
+        body: { refreshToken },
+      }),
+    }),
   }),
 });
 
-export const { useGetPostsQuery, useCreatePostMutation } = apiSlice;
+export const { useGetPostsQuery, useLoginMutation, useRefreshTokenMutation } =
+  apiSlice;

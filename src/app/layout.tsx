@@ -1,5 +1,3 @@
-// app/layout.tsx
-
 import { StoreProvider } from "./_app";
 
 export default function RootLayout({
