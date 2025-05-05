@@ -23,8 +23,9 @@ export const LoginForm: React.FC = () => {
       );
 
       if (user) {
-        localStorage.setItem("accessToken", user.token);
-        console.log("Login successful:", user.token);
+        localStorage.setItem("accessToken", user.accessToken);
+        localStorage.setItem("refreshToken", user.refreshToken);
+        console.log("Login successful:", user.accessToken);
       } else {
         throw new Error("Invalid email or password.");
       }

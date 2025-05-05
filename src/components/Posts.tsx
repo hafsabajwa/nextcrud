@@ -12,20 +12,36 @@ export const Posts: React.FC = () => {
   const [newPost, setNewPost] = useState({ title: "", body: "" });
   const [updatePost, setUpdatePost] = useState({ id: "", title: "", body: "" });
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  const [operation, setOperation] = useState<"create" | "update" | "delete" | "view">("view");
+  const [operation, setOperation] = useState<
+    "create" | "update" | "delete" | "view"
+  >("view");
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
-  const { data: posts, isLoading: isLoadingPosts, isError: isErrorLoadingPosts, refetch } = useGetPostsQuery(undefined);
-  const [createPost, { isLoading: isCreating, isError: isErrorCreating }] = useCreatePostMutation();
-  const [updatePostMutation, { isLoading: isUpdating, isError: isErrorUpdating }] = useUpdatePostMutation();
-  const [deletePostMutation, { isLoading: isDeleting, isError: isErrorDeleting }] = useDeletePostMutation();
+  const {
+    data: posts,
+    isLoading: isLoadingPosts,
+    isError: isErrorLoadingPosts,
+    refetch,
+  } = useGetPostsQuery(undefined);
+  const [createPost, { isLoading: isCreating, isError: isErrorCreating }] =
+    useCreatePostMutation();
+  const [
+    updatePostMutation,
+    { isLoading: isUpdating, isError: isErrorUpdating },
+  ] = useUpdatePostMutation();
+  const [
+    deletePostMutation,
+    { isLoading: isDeleting, isError: isErrorDeleting },
+  ] = useDeletePostMutation();
 
   const handleCreatePost = async () => {
     try {
       const created = await createPost(newPost).unwrap();
       setNewPost({ title: "", body: "" });
       setOperation("view");
-      setFeedbackMessage(`Post titled "${created.title}" created successfully.`);
+      setFeedbackMessage(
+        `Post titled "${created.title}" created successfully.`
+      );
       refetch();
     } catch {
       setFeedbackMessage("Error creating post.");
@@ -37,7 +53,9 @@ export const Posts: React.FC = () => {
       const updated = await updatePostMutation(updatePost).unwrap();
       setUpdatePost({ id: "", title: "", body: "" });
       setOperation("view");
-      setFeedbackMessage(`Post titled "${updated.title}" updated successfully.`);
+      setFeedbackMessage(
+        `Post titled "${updated.title}" updated successfully.`
+      );
       refetch();
     } catch {
       setFeedbackMessage("Error updating post.");
@@ -49,7 +67,9 @@ export const Posts: React.FC = () => {
       await deletePostMutation(postIdToDelete).unwrap();
       setPostIdToDelete("");
       setOperation("view");
-      setFeedbackMessage(`Post with ID "${postIdToDelete}" deleted successfully.`);
+      setFeedbackMessage(
+        `Post with ID "${postIdToDelete}" deleted successfully.`
+      );
       refetch();
     } catch {
       setFeedbackMessage("Error deleting post.");
@@ -65,9 +85,15 @@ export const Posts: React.FC = () => {
     <div>
       <h2>CRUD Operations</h2>
       <div>
-        <button onClick={() => handleOperationChange("create")}>Create Post</button>
-        <button onClick={() => handleOperationChange("update")}>Update Post</button>
-        <button onClick={() => handleOperationChange("delete")}>Delete Post</button>
+        <button onClick={() => handleOperationChange("create")}>
+          Create Post
+        </button>
+        <button onClick={() => handleOperationChange("update")}>
+          Update Post
+        </button>
+        <button onClick={() => handleOperationChange("delete")}>
+          Delete Post
+        </button>
       </div>
 
       {feedbackMessage && <p>{feedbackMessage}</p>}
@@ -119,18 +145,24 @@ export const Posts: React.FC = () => {
           <input
             type="text"
             value={updatePost.id}
-            onChange={(e) => setUpdatePost({ ...updatePost, id: e.target.value })}
+            onChange={(e) =>
+              setUpdatePost({ ...updatePost, id: e.target.value })
+            }
             placeholder="Post ID"
           />
           <input
             type="text"
             value={updatePost.title}
-            onChange={(e) => setUpdatePost({ ...updatePost, title: e.target.value })}
+            onChange={(e) =>
+              setUpdatePost({ ...updatePost, title: e.target.value })
+            }
             placeholder="Title"
           />
           <textarea
             value={updatePost.body}
-            onChange={(e) => setUpdatePost({ ...updatePost, body: e.target.value })}
+            onChange={(e) =>
+              setUpdatePost({ ...updatePost, body: e.target.value })
+            }
             placeholder="Body"
           />
           <button onClick={handleUpdatePost} disabled={isUpdating}>

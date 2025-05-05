@@ -1,13 +1,16 @@
 [
-    {
-      "email": "user@example.com",
-      "password": "password123",
-      "token": "mocked-token-123"
-    },
-    {
-      "email": "admin@example.com",
-      "password": "adminpassword",
-      "token": "mocked-token-456"
-    }
-  ]
-  
+  {
+    "email": "user@example.com",
+    "password": "password123",
+    "token": "mocked-token-123",
+    "accessToken": "mock-access-token-123",
+    "refreshToken": "mock-refresh-token-123"
+  },
+  {
+    "email": "admin@example.com",
+    "password": "adminpassword",
+    "token": "mocked-token-789",
+    "accessToken": "mock-access-token-789",
+    "refreshToken": "mock-refresh-token-789"
+  }
+]
